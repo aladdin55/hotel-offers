@@ -1,0 +1,13 @@
+group 'com.jorddin'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.springframework:spring-webmvc:5.0.4.RELEASE'
+}
