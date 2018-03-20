@@ -1,5 +1,6 @@
 package com.jorddin.web;
 
+import com.jorddin.service.FilterToUriComponentService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,13 +25,13 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.jorddin.web.controllers")
+@ComponentScan("com.jorddin.web")
 public class WebConfiguration implements WebMvcConfigurer {
 
 
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-      resolvers.add(new ExceptionHandlerExceptionResolver()) ;
+     /* resolvers.add(new ExceptionHandlerExceptionResolver()) ;*/
     }
 
     @Bean
@@ -48,4 +49,8 @@ public class WebConfiguration implements WebMvcConfigurer {
         return slr;
     }
     //// TODO: 3/9/2018 LocaleChangeInterceptor
+    @Bean
+    public FilterToUriComponentService filterToUriComponentService(){
+        return new FilterToUriComponentService();
+    }
 }
