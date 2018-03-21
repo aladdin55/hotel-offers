@@ -26,7 +26,7 @@ import java.util.Map;
  * This controller will handle the requests to show/filter hotels offers
  */
 @Controller
-public class HotelsController {
+public class HotelController {
 
     @Autowired
     FilterCriteriaValidation filterCriteriaValidation;
