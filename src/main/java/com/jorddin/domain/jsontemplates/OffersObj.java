@@ -1,6 +1,11 @@
 
 package com.jorddin.domain.jsontemplates;
 
+
+/**
+ * Java plain object of JSON object https://offersvc.expedia.com/offers/v2/getOffers?scenario=deal-finder&page=foo&uid=foo&productType=Hotel
+ * Generated via http://www.jsonschema2pojo.org/
+ */
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;

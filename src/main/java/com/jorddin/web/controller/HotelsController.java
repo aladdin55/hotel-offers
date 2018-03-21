@@ -22,6 +22,8 @@ import java.util.Map;
 
 /**
  * Created by Aladdin on 3/16/2018.
+ *
+ * This controller will handle the requests to show/filter hotels offers
  */
 @Controller
 public class HotelsController {
@@ -33,6 +35,10 @@ public class HotelsController {
     FilterToUriComponentService filterToUriComponentService;
     private String JSON_CONSUMER_ROOT = "https://offersvc.expedia.com/offers/v2/getOffers?scenario=deal-finder&page=foo&uid=foo&productType=Hotel";
     @RequestMapping(path = "/",method= RequestMethod.GET)
+
+    /**
+     * The handler is responsible to handle home page requests
+     */
     public String home(Model model){
 
       RestTemplate restTemplate = new RestTemplate();
@@ -42,6 +48,13 @@ public class HotelsController {
       return "index";
     }
 
+    /**
+     * This handler will validate the passed command object, convert its value to URI to consume json service
+     * @param filterCriteria the command object
+     * @param result validation result
+     * @param model the attribute mapping
+     * @return the view name
+     */
     @RequestMapping(path = "/search")
     public String searchOffer(@ModelAttribute FilterCriteria filterCriteria, BindingResult result, Model model){
         if (result.hasErrors()){
@@ -54,7 +67,12 @@ public class HotelsController {
     }
 
 
-
+    /**
+     * This method populates a passed map of members of FilterCriteria in order to construct a URI to consume the json service
+     * @param filterCriteria the command object
+     * @param map the map to be used to populate the data
+     * @return the constructed URI pattern
+     */
    public URI populateCrateria(FilterCriteria filterCriteria,Model map){
        Map <String,Object> mappedComponenets = filterToUriComponentService.mappedComponents(filterCriteria);
        URIBuilder uriBuilder=null;
@@ -72,6 +90,10 @@ public class HotelsController {
        }
     }
 
+    /**
+     * Add a validation class to @{@link FilterCriteria} command object
+     * @param binder the binder of the annotated component
+     */
     @InitBinder("filterCriteria")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(filterCriteriaValidation);

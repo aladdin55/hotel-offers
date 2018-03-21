@@ -8,16 +8,29 @@ import org.springframework.validation.Validator;
 
 /**
  * Created by Aladdin on 3/18/2018.
+ *
+ * A spring components to validate @{@link FilterCriteria} object
  */
 @Component
 public class FilterCriteriaValidation implements Validator {
 
-
+    /**
+     * returns the class that this validation is supposed to validate
+     * @param clazz the validated class
+     * @return true if the validation is applicable
+     */
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz.equals(FilterCriteria.class);
     }
 
+
+    /**
+     * The class try to validate the command object data, it will add a corresponding error message according to the problematic
+     * field
+     * @param target the command object
+     * @param errors the errors encountered during the validation
+     */
     @Override
     public void validate(@Nullable Object target, Errors errors) {
         FilterCriteria filterCriteria = (FilterCriteria) target;

@@ -10,6 +10,12 @@ import java.util.Date;
 
 /**
  * Created by Aladdin on 3/17/2018.
+ *
+ * This class represents spring command object that will control the returned data from filtering process.
+ * Any filtering criteria should be added here with its corresponding view.
+ * Note that the date objects members are mapped from httpstring date value
+ * The getters and setters are self-explaining
+ *
  */
 
 public class FilterCriteria {
