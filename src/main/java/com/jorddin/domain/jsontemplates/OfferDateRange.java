@@ -1,15 +1,11 @@
 
 package com.jorddin.domain.jsontemplates;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import com.fasterxml.jackson.annotation.*;
+
 /**
  * Java plain object of JSON object https://offersvc.expedia.com/offers/v2/getOffers?scenario=deal-finder&page=foo&uid=foo&productType=Hotel
  * Generated via http://www.jsonschema2pojo.org/
@@ -23,33 +19,44 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class OfferDateRange {
 
     @JsonProperty("travelStartDate")
-    private List<Integer> travelStartDate = null;
+    private Date travelStartDate = null;
     @JsonProperty("travelEndDate")
-    private List<Integer> travelEndDate = null;
+    private Date travelEndDate = null;
     @JsonProperty("lengthOfStay")
     private Integer lengthOfStay;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("travelStartDate")
-    public List<Integer> getTravelStartDate() {
+    public Date getTravelStartDate() {
         return travelStartDate;
     }
 
-    @JsonProperty("travelStartDate")
+    @JsonSetter("travelStartDate")
     public void setTravelStartDate(List<Integer> travelStartDate) {
-        this.travelStartDate = travelStartDate;
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.YEAR,travelStartDate.get(0));
+        calendar.set(Calendar.MONTH,travelStartDate.get(1)+1);
+        calendar.set(Calendar.DAY_OF_MONTH,travelStartDate.get(2));
+        this.travelStartDate = calendar.getTime();
     }
 
     @JsonProperty("travelEndDate")
-    public List<Integer> getTravelEndDate() {
+    public Date getTravelEndDate() {
         return travelEndDate;
     }
 
-    @JsonProperty("travelEndDate")
+    @JsonSetter("travelEndDate")
     public void setTravelEndDate(List<Integer> travelEndDate) {
-        this.travelEndDate = travelEndDate;
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.YEAR,travelEndDate.get(0));
+        calendar.set(Calendar.MONTH,travelEndDate.get(1)+1);
+        calendar.set(Calendar.DAY_OF_MONTH,travelEndDate.get(2));
+        this.travelEndDate = calendar.getTime();
     }
+
 
     @JsonProperty("lengthOfStay")
     public Integer getLengthOfStay() {
