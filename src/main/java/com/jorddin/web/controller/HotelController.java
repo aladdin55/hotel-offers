@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,11 +35,12 @@ public class HotelController {
     @Autowired
     FilterToUriComponentService filterToUriComponentService;
     private String JSON_CONSUMER_ROOT = "https://offersvc.expedia.com/offers/v2/getOffers?scenario=deal-finder&page=foo&uid=foo&productType=Hotel";
-    @RequestMapping(path = "/",method= RequestMethod.GET)
+
 
     /**
      * The handler is responsible to handle home page requests
      */
+    @RequestMapping(path = "/",method= RequestMethod.GET)
     public String home(Model model){
 
       RestTemplate restTemplate = new RestTemplate();
@@ -56,13 +58,14 @@ public class HotelController {
      * @return the view name
      */
     @RequestMapping(path = "/search")
-    public String searchOffer(@ModelAttribute FilterCriteria filterCriteria, BindingResult result, Model model){
+    public String searchOffer(@Validated @ModelAttribute FilterCriteria filterCriteria, BindingResult result, Model model){
         if (result.hasErrors()){
             return "index";
         }
         URI cretiriaURI = populateCrateria(filterCriteria,model);
         RestTemplate restTemplate = new RestTemplate();
         OffersObj offersObj = restTemplate.getForObject(cretiriaURI,OffersObj.class);
+        model.addAttribute(offersObj);
         return "index";
     }
 
