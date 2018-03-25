@@ -1,1 +1,1 @@
-web: java -jar build/server/webapp-runner-*.jar build/libs/*.war --port 80
+web: java -jar build/server/webapp-runner-*.jar build/libs/*.war
