@@ -39,22 +39,43 @@ public class FilterCriteriaValidation implements Validator {
                 && filterCriteria.getMinTripStartDate().compareTo(filterCriteria.getMaxTripStartDate())>0){
             errors.rejectValue("minTripStartDate",null,"Min Trip start date should be less than the max");
         }
-        if(filterCriteria.getLengthOfStay()!=null && filterCriteria.getLengthOfStay()<=0){
-            errors.rejectValue("lengthOfStay",null,"Length of stay shouldn't be less than 0");
+        if(filterCriteria.getLengthOfStay()!=null && filterCriteria.getLengthOfStay()<1){
+            errors.rejectValue("lengthOfStay",null,"Length of stay shouldn't be less than 1");
         }
 
-        if(filterCriteria.getMinStarRating()!=null  && filterCriteria.getMaxStarRating() !=null &&
-                filterCriteria.getMinStarRating() > filterCriteria.getMaxStarRating()){
-            errors.rejectValue("minStarRating", null,"Min star rating should be equal or higher than the max");
+        if(filterCriteria.getMinStarRating()!=null ){
+            if(filterCriteria.getMinStarRating() < 1){
+                errors.rejectValue("minStarRating",null,"Min star can't be less than 1");
+            }
+            if(filterCriteria.getMaxStarRating()!=null && filterCriteria.getMaxStarRating() < filterCriteria.getMinStarRating()){
+                errors.rejectValue("minStarRating", null,"Min star rating should be equal or higher than the max");
+            }
         }
-        if(filterCriteria.getMinTotalPriceValue()!=null  && filterCriteria.getMaxTotalPriceValue() !=null &&
-                filterCriteria.getMinTotalPriceValue() > filterCriteria.getMaxTotalPriceValue()){
-            errors.rejectValue("minTotalPriceValue", null,"Min total price should be equal or higher than the max");
+        if(filterCriteria.getMaxStarRating()!=null && filterCriteria.getMaxStarRating() < 1 ){
+            errors.rejectValue("maxStarRating",null,"Max star can't be less than 1");
+        }
+        if(filterCriteria.getMinTotalPriceValue()!=null ){
+            if(filterCriteria.getMinTotalPriceValue() < 1){
+                errors.rejectValue("minTotalPriceValue",null,"Min total can't be less than 1");
+            }
+            if(filterCriteria.getMaxTotalPriceValue()!=null && filterCriteria.getMaxTotalPriceValue() < filterCriteria.getMinTotalPriceValue()){
+                errors.rejectValue("minTotalPriceValue", null,"Min total price should be equal or higher than the max");
+            }
+        }
+        if(filterCriteria.getMaxTotalPriceValue()!=null && filterCriteria.getMaxTotalPriceValue() < 1 ){
+            errors.rejectValue("maxTotalPriceValue",null,"Max total price can't be less than 1");
         }
 
-        if(filterCriteria.getMinGuestRating()!=null && filterCriteria.getMaxGuestRating()!=null &&
-                filterCriteria.getMinGuestRating() > filterCriteria.getMaxGuestRating()){
-            errors.rejectValue("minGuestRating", null,"Min guest rating should be equal or higher Max");
+        if(filterCriteria.getMinGuestRating()!=null ){
+            if(filterCriteria.getMinGuestRating() < 1){
+                errors.rejectValue("minGuestRating",null,"Min guest rating can't be less than 1");
+            }
+            if(filterCriteria.getMaxGuestRating()!=null && filterCriteria.getMaxGuestRating() < filterCriteria.getMinGuestRating()){
+                errors.rejectValue("minGuestRating", null,"Min guest rating should be equal or higher than the max");
+            }
+        }
+        if(filterCriteria.getMaxGuestRating()!=null && filterCriteria.getMaxGuestRating() < 1 ){
+            errors.rejectValue("maxGuestRating",null,"Max guest rating can't be less than 1");
         }
     }
 }
